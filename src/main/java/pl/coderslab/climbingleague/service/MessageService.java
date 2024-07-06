@@ -1,4 +1,4 @@
-package pl.coderslab.climbing_league.service;
+package pl.coderslab.climbingleague.service;
 
 import org.springframework.stereotype.Service;
 

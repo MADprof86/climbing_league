@@ -1,7 +1,8 @@
-package pl.coderslab.climbing_league;
+package pl.coderslab.climbingleague.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import pl.coderslab.climbingleague.ClimbingLeagueApplication;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 
