@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Size;
+
 @Entity
 @Getter
 @Setter
@@ -17,7 +19,7 @@ public class Boulder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id")
     private Competition competition;
-
+    @Size(min = 2)
     @Column(nullable = false)
     private String name;
 }

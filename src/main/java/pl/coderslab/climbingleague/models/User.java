@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
+
 @Entity
 @Getter
 @Setter
@@ -14,10 +18,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Email
     @NonNull
     @Column(nullable = false, unique = true)
     private String email;
-
+    @Size(min = 8)
     @Column(nullable = false)
     private String password;
     @NonNull

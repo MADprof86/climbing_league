@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class League {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Size(min = 2, max = 50)
     @Column(nullable = false)
     private String name;
 
