@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista lig</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Lista lig</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Organizator</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="league : ${leagues}">
+
+            <td th:text="${league.id}">1</td>
+
+            <td th:text="${league.name}">League Name</td>
+
+            <td th:text="${league.description}">League Description</td>
+
+            <td th:text="${league.createdBy}"> League creator</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
