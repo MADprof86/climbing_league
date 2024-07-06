@@ -2,11 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <title>Hello World</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<h1 th:text="${message}"></h1>
-<h1 th:text="${message}"></h1>
-<h1 th:text="${message}"></h1>
-<h1 th:text="${message}"></h1>
+<div class="container">
+    <h1 th:text="${message}">Hello World</h1>
+    <h1 th:text="${message}">Hello World</h1>
+    <h1 th:text="${message}">Hello World</h1>
+    <h1 th:text="${message}">Hello World</h1>
+    <h1 th:text="${message}">Hello World</h1>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
