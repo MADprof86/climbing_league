@@ -2,32 +2,64 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Lista użytkowników</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>Lista użytkowników</h1>
-    <table class="table table-bordered">
+    <h1>Użytkownicy</h1>
+    <form th:action="@{/users}" th:object="${user}" method="post" class="mb-3">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="firstName">Imie</label>
+            <input type="text" id="firstName" th:field="*{firstName}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" id="lastName" th:field="*{lastName}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" th:field="*{role}" class="form-control" required>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="profilePicture">Profile Picture</label>
+            <input type="text" id="profilePicture" th:field="*{profilePicture}" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Email</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Profil</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
-
             <td th:text="${user.id}">1</td>
-
-            <td th:text="${user.email}">example@example.com</td>
-
-            <td th:text="${user.firstName}">Jan</td>
-
-            <td th:text="${user.lastName}">Kowalski</td>
-
+            <td th:text="${user.email}">email@example.com</td>
+            <td th:text="${user.firstName}">First Name</td>
+            <td th:text="${user.lastName}">Last Name</td>
+            <td th:text="${user.role}">USER</td>
+            <td>
+                <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć użytkownika?');">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>

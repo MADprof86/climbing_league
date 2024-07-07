@@ -9,6 +9,7 @@ import pl.coderslab.climbingleague.repositories.CompetitionRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CompetitionService {
@@ -35,5 +36,11 @@ public class CompetitionService {
     public void deleteById(Long id) {
         logger.info("Deleting competition with id: {}", id);
         competitionRepository.deleteById(id);
+    }
+
+    public List<Competition> findByLeagueId(Long id) {
+        logger.info("Looking for competitions by league id {}", id);
+        return competitionRepository.findAll().stream().filter(competition -> competition.getId().equals(id))
+                .collect(Collectors.toList());
     }
 }

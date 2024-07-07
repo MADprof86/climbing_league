@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>League Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Szczegóły</h1>
+    <div>
+        <h2 th:text="${league.name}">League Name</h2>
+        <p th:text="${league.description}">League Description</p>
+    </div>
+    <h3>Competitions</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Data</th>
+            <th>Zawodników</th>
+            <th>Ścianka</th>
+            <th>Miasto</th>
+            <th>Szczegóły</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="competition : ${competitions}">
+            <td th:text="${competition.id}">ID</td>
+            <td th:text="${competition.name}">Name</td>
+            <td th:text="${competition.date}">Date</td>
+            <td th:text="${competition.numberOfParticipants}">Participants</td>
+            <td th:text="${competition.objectName}">Object name</td>
+            <td th:text="${competition.location}">Location</td>
+            <td>
+                <a th:href="@{competition/{id}(id=${competition.id})}" class="btn btn-info">Details</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a href="/leagues" class="btn btn-primary">Powrót do listy lig</a>
+</div>
+</body>
+</html>

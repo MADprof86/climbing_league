@@ -2,32 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Lista lig</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Leagues</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>Lista lig</h1>
-    <table class="table table-bordered">
+    <h1>Ligi boulderowe</h1>
+    <form th:action="@{/leagues}" th:object="${league}" method="post" class="mb-3">
+        <div class="form-group">
+            <label for="name">Nazwa</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="description">Opis</label>
+            <input type="text" id="description" th:field="*{description}" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Add League</button>
+    </form>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
             <th>Opis</th>
-            <th>Organizator</th>
+            <th>Ilość zawodów</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="league : ${leagues}">
-
             <td th:text="${league.id}">1</td>
-
             <td th:text="${league.name}">League Name</td>
-
             <td th:text="${league.description}">League Description</td>
-
-            <td th:text="${league.createdBy}"> League creator</td>
-
+            <td th:text="${league.competitions.size()}" >Competitions size</td>
+            <td>
+                <a th:href="@{/leagues/details/{id}(id=${league.id})}" class="btn btn-info">Details</a>
+                <a th:href="@{/leagues/delete/{id}(id=${league.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć tą ligę?');">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>

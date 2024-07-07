@@ -33,7 +33,9 @@ public class UserService {
     }
 
     public void deleteById(Long id){
+
         logger.info("Deleting user with id {}", id);
+        userRepository.deleteById(id);
     }
 
 

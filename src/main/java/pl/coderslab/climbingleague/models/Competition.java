@@ -46,6 +46,11 @@ public class Competition {
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Result> results;
 
+   @Transient
+   public int getNumberOfParticipants(){
+       return results != null ? results.size() : 0;
+   }
+
     public enum CompetitionType {
         ELIMINATIONS, FINALS
     }
