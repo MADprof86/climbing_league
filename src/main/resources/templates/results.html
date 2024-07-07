@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pl" th:charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Lista wyników</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -13,17 +13,25 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Użytkownik</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+
             <th>Zawody</th>
-            <th>Wynik</th>
+            <th>Ilość Topów</th>
+            <th>Ilość Stref</th>
+            <th>Suma Punktów</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="result : ${results}">
             <td th:text="${result.id}">1</td>
-            <td th:text="${result.user.email}">example@example.com</td>
+            <td th:text="${result.user.firstName}">First Name</td>
+            <td th:text="${result.user.lastName}">Last Name</td>
+
             <td th:text="${result.competition.name}">Competition Name</td>
-            <td th:text="${result.totalPoints}">10.0</td>
+            <td th:text="${result.tops}">Top Count</td>
+            <td th:text="${result.zones}">Zone Count</td>
+            <td th:text="${result.totalPoints}">Total Points</td>
         </tr>
         </tbody>
     </table>

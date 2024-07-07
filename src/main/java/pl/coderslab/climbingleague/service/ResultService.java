@@ -36,4 +36,7 @@ public class ResultService {
         logger.info("Deleting result with id: {}", id);
         resultRepository.deleteById(id);
     }
+    public List<Result> findByCompetitionId(Long competitionId){
+        return  resultRepository.findAllByCompetitionId(competitionId);
+    }
 }

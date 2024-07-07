@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +20,12 @@ public class Boulder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id")
     private Competition competition;
+
+
     @Size(min = 2)
     @Column(nullable = false)
     private String name;
+
+   @OneToMany(mappedBy = "boulder")
+    private List<BoulderResult> boulderResults;
 }

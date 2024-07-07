@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,9 @@ public class Result {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "result")
+    private List<BoulderResult> boulderResults;
 
     private Double score;
     private Integer top;

@@ -40,7 +40,7 @@ public class LeagueController {
         return "redirect:/leagues";
     }
     @GetMapping("/details/{id}")
-    public String getLeagueDdetails(@PathVariable Long id, Model model){
+    public String getLeagueDetails(@PathVariable Long id, Model model){
         Optional<League> leagueOptional = leagueService.findById(id);
         if(leagueOptional.isPresent()){
             League league = leagueOptional.get();
