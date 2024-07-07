@@ -27,6 +27,6 @@ public class ResultController {
         List<Result> results = resultService.findByCompetitionId(id);
 
         model.addAttribute("results", results);
-        return "results";
+        return "comp-results";
     }
 }

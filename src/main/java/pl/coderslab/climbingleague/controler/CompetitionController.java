@@ -28,7 +28,7 @@ public class CompetitionController {
         Optional<Competition> competition = competitionService.findById(id);
         if(competition.isPresent()) {
             model.addAttribute("results", competition);
-            return "results";
+            return "comp-results";
         }
         return "redirect:/competitions";
     }
