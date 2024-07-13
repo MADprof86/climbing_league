@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr th:each="result : ${results}">
-            <td th:text="${result.competition.league.name}">Nazwa Ligi</td>
+            <td th:text="${result.competition.getLeague() != null ? result.competition.getLeague().getName() : 'nie ligowe'}">Nazwa ligi</td>
             <td th:text="${result.competition.name}">Nazwa Zawodów</td>
             <td th:text="${#dates.format(result.competition.date, 'dd-MM-yyyy')}">Data Zawodów</td>
             <td th:text="${result.totalPoints}">Sumaryczny Wynik Punktowy</td>
