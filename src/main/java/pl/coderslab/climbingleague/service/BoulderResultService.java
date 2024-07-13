@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.climbingleague.models.BoulderResult;
+import pl.coderslab.climbingleague.models.Scores;
 import pl.coderslab.climbingleague.repositories.BoulderResultRepository;
 
 import java.util.List;
@@ -35,5 +36,9 @@ public class BoulderResultService {
     public void deleteById(Long id) {
         logger.info("Deleting boulder result with id: {}", id);
         boulderResultRepository.deleteById(id);
+    }
+
+    public List<BoulderResult> findByScores(Scores result) {
+        return boulderResultRepository.findAllByScores(result);
     }
 }

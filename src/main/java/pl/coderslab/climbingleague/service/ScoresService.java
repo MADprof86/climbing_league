@@ -53,4 +53,8 @@ public class ScoresService {
     public List<Scores> findByUser(User user) {
         return  scoresRepository.findAllByUser(user);
     }
+
+    public Scores findByUserAndCompetitionId(User user, Long competitionId) {
+        return  scoresRepository.findByUserAndCompetitionId(user,competitionId);
+    }
 }
