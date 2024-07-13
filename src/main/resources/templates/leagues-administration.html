@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Zarządzanie Zawodami</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <nav th:replace="header :: header"></nav>
@@ -28,13 +29,29 @@
             <td th:text="${league.competitions.size()}">Liczba Zawodów</td>
             <td>
                 <a th:href="@{/leagues/edit/{id}(id=${league.id})}" class="btn btn-info">Edytuj</a>
-                <a th:href="@{/leagues/delete/{id}(id=${league.id})}" class="btn btn-danger">Usuń</a>
-                <a th:href="@{/competitions/add/{leagueId}(leagueId=${league.id})}" class="btn btn-primary">Dodaj Zawody</a>
+                <a th:href="@{/leagues-administration/delete/{id}(id=${league.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć tą ligę?');">Delete</a>
+
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/leagues/add" class="btn btn-success">Dodaj Nową Ligę</a>
+    <button id="showAddLeagueForm" class="btn btn-success">Dodaj Nową Ligę</button>
+
+    <div id="addLeagueFormContainer" style="display: none;">
+        <h3>Dodaj Ligę</h3>
+        <form id="addLeagueForm">
+            <div class="form-group">
+                <label for="name">Nazwa Ligi:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Opis:</label>
+                <textarea id="description" name="description" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add League</button>
+        </form>
+        <div id="addLeagueMessage" class="mt-3"></div>
+    </div>
 
     <h2>Zawody Bez Ligi</h2>
     <table class="table table-bordered">
@@ -63,5 +80,32 @@
     </table>
     <a href="/competitions/add" class="btn btn-success">Dodaj Nowe Zawody</a>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#showAddLeagueForm').click(function() {
+            $('#addLeagueFormContainer').toggle();
+        });
+
+        $('#addLeagueForm').submit(function(event) {
+            event.preventDefault();
+            const formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/leagues/add',
+                data: formData,
+                success: function(response) {
+                    $('#addLeagueMessage').html('<div class="alert alert-success">' + response + '</div>');
+                    $('#addLeagueFormContainer').hide();
+                    location.reload();
+                },
+                error: function(response) {
+                    $('#addLeagueMessage').html('<div class="alert alert-danger">' + response.responseText + '</div>');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

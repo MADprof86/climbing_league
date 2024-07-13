@@ -9,18 +9,7 @@
 <body>
 <header th:replace="header :: header"></header>
 <div class="container">
-    <h1>Ligi boulderowe</h1>
-    <form th:action="@{/leagues}" th:object="${league}" method="post" class="mb-3">
-        <div class="form-group">
-            <label for="name">Nazwa</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label for="description">Opis</label>
-            <input type="text" id="description" th:field="*{description}" class="form-control"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Add League</button>
-    </form>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -39,7 +28,7 @@
             <td th:text="${league.competitions.size()}" >Competitions size</td>
             <td>
                 <a th:href="@{/leagues/details/{id}(id=${league.id})}" class="btn btn-info">Details</a>
-                <a th:href="@{/leagues/delete/{id}(id=${league.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć tą ligę?');">Delete</a>
+
             </td>
         </tr>
         </tbody>

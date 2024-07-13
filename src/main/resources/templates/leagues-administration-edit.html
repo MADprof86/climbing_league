@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edycja Ligi</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="header :: header"></nav>
+<div class="container">
+    <h1>Edycja Ligi</h1>
+    <form th:action="@{/leagues/update}" method="post">
+        <input type="hidden" name="id" th:value="${league.id}">
+        <div class="form-group">
+            <label for="name">Nazwa Ligi:</label>
+            <input type="text" id="name" name="name" class="form-control" th:value="${league.name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Opis:</label>
+            <textarea id="description" name="description" class="form-control" required
+                      th:text="${league.description}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="adminEmail">Email Administratora:</label>
+            <input type="email" id="adminEmail" name="adminEmail" class="form-control"
+                   th:value="${league.createdBy.email}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+
+    <h2>Zawody w Lidze</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nazwa Zawodów</th>
+            <th>Data</th>
+            <th>Lokalizacja</th>
+            <th>Obiekt</th>
+            <th>Liczba Zawodników</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="competition : ${league.competitions}">
+            <td th:text="${competition.name}">Nazwa Zawodów</td>
+            <td th:text="${#dates.format(competition.date, 'dd-MM-yyyy')}">Data</td>
+            <td th:text="${competition.location}">Lokalizacja</td>
+            <td th:text="${competition.objectName}">Obiekt</td>
+            <td th:text="${competition.scores.size()}">Liczba Zawodników</td>
+            <td>
+                <a th:href="@{/competitions/edit/{id}(id=${competition.id})}" class="btn btn-info">Edytuj</a>
+                <a th:href="@{/results/add/{competitionId}(competitionId=${competition.id})}" class="btn btn-primary">Dodaj Wyniki</a>
+                <a th:href="@{/results/edit/{competitionId}(competitionId=${competition.id})}" class="btn btn-warning">Edytuj Wyniki</a>
+                <a th:href="@{/leagues/removeCompetition/{competitionId}/{leagueId}(competitionId=${competition.id}, leagueId=${league.id})}"
+                   class="btn btn-danger">Usuń Z Ligi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Zawody Bez Ligi</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nazwa Zawodów</th>
+            <th>Data</th>
+            <th>Lokalizacja</th>
+            <th>Obiekt</th>
+            <th>Liczba Zawodników</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="competition : ${competitionsWithoutLeague}">
+            <td th:text="${competition.name}">Nazwa Zawodów</td>
+            <td th:text="${#dates.format(competition.date, 'dd-MM-yyyy')}">Data</td>
+            <td th:text="${competition.location}">Lokalizacja</td>
+            <td th:text="${competition.objectName}">Obiekt</td>
+            <td th:text="${competition.scores.size()}">Liczba Zawodników</td>
+            <td>
+                <a th:href="@{/leagues/addCompetition/{competitionId}/{leagueId}(competitionId=${competition.id}, leagueId=${league.id})}"
+                   class="btn btn-success">Dodaj Do Ligi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

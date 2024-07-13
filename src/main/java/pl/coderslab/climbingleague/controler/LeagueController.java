@@ -34,11 +34,7 @@ public class LeagueController {
         return "redirect:/leagues";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteLeague(@PathVariable Long id) {
-        leagueService.deleteById(id);
-        return "redirect:/leagues";
-    }
+
     @GetMapping("/details/{id}")
     public String getLeagueDetails(@PathVariable Long id, Model model){
         Optional<League> leagueOptional = leagueService.findById(id);
@@ -53,7 +49,5 @@ public class LeagueController {
         }
 
     }
-
-
 
 }

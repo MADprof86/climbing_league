@@ -5,4 +5,5 @@ import pl.coderslab.climbingleague.models.League;
 import pl.coderslab.climbingleague.models.User;
 
 public interface LeagueRepository extends JpaRepository<League, Long> {
+    boolean existsLeagueByName(String name);
 }

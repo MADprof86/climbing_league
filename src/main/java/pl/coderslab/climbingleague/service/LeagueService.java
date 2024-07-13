@@ -39,4 +39,8 @@ public class LeagueService {
     }
 
 
+    public boolean findIfLeagueExistsByName(String name) {
+        logger.info("Searching for league by name :{}",name);
+        return leagueRepository.existsLeagueByName(name);
+    }
 }
