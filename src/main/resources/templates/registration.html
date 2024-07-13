@@ -10,7 +10,7 @@
 <nav th:replace="header :: header"></nav>
 <div class="container">
     <h1>Rejestracja</h1>
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/registration}" th:object="${user}" method="post">
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" th:field="*{email}" class="form-control" />
