@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.climbingleague.service.MessageService;
 import org.slf4j.Logger;
 
@@ -15,10 +16,17 @@ public class MessageController {
     private MessageService messageService;
     private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
+//    @GetMapping("/")
+//    public String test(Model model){
+//        logger.info("Redirecting message test");
+//        model.addAttribute("message", messageService.getMessage());
+//        return "index";
+//    }
     @GetMapping("/")
-    public String test(Model model){
-        logger.info("Redirecting message test");
-        model.addAttribute("message", messageService.getMessage());
+    public String home(@RequestParam(value = "login_success", required = false) String loginSuccess, Model model) {
+        if (loginSuccess != null) {
+            model.addAttribute("message", "You have logged in successfully.");
+        }
         return "index";
     }
 }

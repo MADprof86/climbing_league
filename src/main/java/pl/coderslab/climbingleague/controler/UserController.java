@@ -22,11 +22,7 @@ public class UserController {
         return "users";
     };
 
-    @PostMapping
-    public String addUser(@ModelAttribute User user){
-        userService.save(user);
-        return "redirect:/users";
-    }
+
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id){

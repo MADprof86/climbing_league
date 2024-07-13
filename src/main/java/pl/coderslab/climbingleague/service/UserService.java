@@ -3,7 +3,9 @@ package pl.coderslab.climbingleague.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.coderslab.climbingleague.exceptions.EmailUsedException;
 import pl.coderslab.climbingleague.models.User;
 import pl.coderslab.climbingleague.repositories.UserRepository;
 
@@ -16,6 +18,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<User> findAll(){
         logger.info("Finding all users");
@@ -27,9 +31,16 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User save(User user){
+    public void save(User user) throws EmailUsedException {
         logger.info("Saving user with id: {}", user.getId());
-        return userRepository.save(user);
+        if(userRepository.findUserByEmail(user.getEmail()) != null){
+            throw new EmailUsedException("There is an account with provided email");
+        }
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        logger.info("Encoded password: {}", encodedPassword);
+        user.setPassword(encodedPassword);
+        user.setRole(User.Role.USER);
+        userRepository.save(user);
     }
 
     public void deleteById(Long id){
