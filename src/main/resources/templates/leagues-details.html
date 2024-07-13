@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<header th:replace="header :: header"></header>
 <div class="container">
     <h1>Szczegóły</h1>
     <div>
@@ -42,7 +43,17 @@
         </tr>
         </tbody>
     </table>
-    <a href="/leagues" class="btn btn-primary">Powrót do listy lig</a>
+    <a href="javascript:history.back()" class="btn btn-primary">Powrót do poprzedniej strony</a>
+
 </div>
+<script>
+    function goBack() {
+        if (document.referrer !== "") {
+            history.back();
+        } else {
+            window.location.href = "/index.html";
+        }
+    }
+</script>
 </body>
 </html>
