@@ -44,11 +44,11 @@ public class Competition {
     private ScoreSystem scoreSystem;
 
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Result> results;
+    private List<Scores> scores;
 
    @Transient
    public int getNumberOfParticipants(){
-       return results != null ? results.size() : 0;
+       return scores != null ? scores.size() : 0;
    }
 
     public enum CompetitionType {

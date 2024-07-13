@@ -16,8 +16,8 @@ public class BoulderResult {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "result_id")
-    private Result result;
+    @JoinColumn(name = "scores_id")
+    private Scores scores;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boulder_id")

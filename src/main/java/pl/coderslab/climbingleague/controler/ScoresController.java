@@ -8,25 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.climbingleague.models.Result;
-import pl.coderslab.climbingleague.service.ResultService;
+import pl.coderslab.climbingleague.models.Scores;
+import pl.coderslab.climbingleague.service.ScoresService;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/results")
-public class ResultController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ResultService.class);
+public class ScoresController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoresService.class);
 
     @Autowired
-    private ResultService resultService;
+    private ScoresService scoresService;
 
     @GetMapping("/competition/{id}")
-    public String listResultsByCompetition(@PathVariable Long id, Model model) {
+    public String listScoresByCompetition(@PathVariable Long id, Model model) {
         LOGGER.info("looking for RESULTS");
-        List<Result> results = resultService.findByCompetitionId(id);
+        List<Scores> scores = scoresService.findByCompetitionId(id);
 
-        model.addAttribute("results", results);
+        model.addAttribute("results", scores);
         return "comp-results";
     }
 }

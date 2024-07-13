@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Result {
+public class Scores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class Result {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "result")
+    @OneToMany(mappedBy = "scores")
     private List<BoulderResult> boulderResults;
 
     private Double score;
@@ -33,5 +33,5 @@ public class Result {
     private Integer attempts;
     private Integer flashAttempts;
     private Double totalPoints;
-    private Integer rank;
+    private Integer currentRanking;
 }
