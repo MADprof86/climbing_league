@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Zarządzanie Zawodami</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="header :: header"></nav>
+<div class="container">
+    <h1>Zarządzanie Zawodami</h1>
+
+    <h2>Ligi</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nazwa Ligi</th>
+            <th>Opis</th>
+            <th>Liczba Zawodów</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="league : ${leagues}">
+            <td th:text="${league.name}">Nazwa Ligi</td>
+            <td th:text="${league.description}">Opis</td>
+            <td th:text="${league.competitions.size()}">Liczba Zawodów</td>
+            <td>
+                <a th:href="@{/leagues/edit/{id}(id=${league.id})}" class="btn btn-info">Edytuj</a>
+                <a th:href="@{/leagues/delete/{id}(id=${league.id})}" class="btn btn-danger">Usuń</a>
+                <a th:href="@{/competitions/add/{leagueId}(leagueId=${league.id})}" class="btn btn-primary">Dodaj Zawody</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/leagues/add" class="btn btn-success">Dodaj Nową Ligę</a>
+
+    <h2>Zawody Bez Ligi</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nazwa Zawodów</th>
+            <th>Data</th>
+            <th>Lokalizacja</th>
+            <th>Obiekt</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="competition : ${competitionsWithoutLeague}">
+            <td th:text="${competition.name}">Nazwa Zawodów</td>
+            <td th:text="${#dates.format(competition.date, 'dd-MM-yyyy')}">Data</td>
+            <td th:text="${competition.location}">Lokalizacja</td>
+            <td th:text="${competition.objectName}">Obiekt</td>
+            <td>
+                <a th:href="@{/competitions/edit/{id}(id=${competition.id})}" class="btn btn-info">Edytuj</a>
+                <a th:href="@{/competitions/delete/{id}(id=${competition.id})}" class="btn btn-danger">Usuń</a>
+                <a th:href="@{/results/add/{competitionId}(competitionId=${competition.id})}" class="btn btn-primary">Dodaj Wyniki</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/competitions/add" class="btn btn-success">Dodaj Nowe Zawody</a>
+</div>
+</body>
+</html>

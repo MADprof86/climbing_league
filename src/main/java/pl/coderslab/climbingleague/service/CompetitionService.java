@@ -43,4 +43,10 @@ public class CompetitionService {
         return competitionRepository.findAll().stream().filter(competition -> competition.getId().equals(id))
                 .collect(Collectors.toList());
     }
+    public List<Competition> findByLeagueIsNull(){
+        logger.info("Looking for repository by league null");
+        return competitionRepository.findAllByLeagueIsNull();
+    }
 }
+
+
