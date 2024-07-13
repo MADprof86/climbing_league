@@ -33,4 +33,5 @@ public class Result {
     private Integer attempts;
     private Integer flashAttempts;
     private Double totalPoints;
+    private Integer rank;
 }

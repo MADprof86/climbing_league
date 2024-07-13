@@ -37,6 +37,10 @@ public class UserService {
         logger.info("Deleting user with id {}", id);
         userRepository.deleteById(id);
     }
+    public User findUserByEmail(String email){
+        logger.info("Finding user by email");
+        return userRepository.findUserByEmail(email);
+    }
 
 
 }

@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.climbingleague.models.Result;
+import pl.coderslab.climbingleague.models.User;
 import pl.coderslab.climbingleague.repositories.ResultRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,18 @@ public class ResultService {
         resultRepository.deleteById(id);
     }
     public List<Result> findByCompetitionId(Long competitionId){
-        return  resultRepository.findAllByCompetitionId(competitionId);
+        //Ustawiamy od razu sortowanie - potem musimy dodać jeszcze podział na kategorie
+        List<Result> results = resultRepository.findAllByCompetitionId(competitionId);
+        results.sort(Comparator.comparingDouble(Result::getTotalPoints).reversed());
+        for (int i = 0; i < results.size() ; i++) {
+            results.get(i).setRank(i+1);
+
+        }
+        return results;
+
+    }
+
+    public List<Result> findByUser(User user) {
+        return  resultRepository.findAllByUser(user);
     }
 }
