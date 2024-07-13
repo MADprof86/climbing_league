@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Szczegóły Wyników</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="header :: header"></nav>
+<div class="container">
+    <h1>Szczegóły Wyników</h1>
+    <h3 th:text="'Miejsce w zawodach: ' + ${result.currentRanking}">Miejsce w zawodach: </h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Parametr</th>
+            <th th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.boulder.name}">Nazwa Boulderu</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Punkty</td>
+            <td th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.score}">Punkty</td>
+        </tr>
+        <tr>
+            <td>Top</td>
+            <td th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.top ? 'Tak' : 'Nie'}">Top</td>
+        </tr>
+        <tr>
+            <td>Zone</td>
+            <td th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.zone ? 'Tak' : 'Nie'}">Zone</td>
+        </tr>
+        <tr>
+            <td>Próby</td>
+            <td th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.attempts}">Próby</td>
+        </tr>
+        <tr>
+            <td>Flash</td>
+            <td th:each="boulderResult : ${boulderResults}" th:text="${boulderResult.flash ? 'Tak' : 'Nie'}">Flash</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/results" class="btn btn-primary">Powrót do wyników</a>
+</div>
+</body>
+</html>
