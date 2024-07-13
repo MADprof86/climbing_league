@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.climbingleague.exceptions.EmailUsedException;
 import pl.coderslab.climbingleague.models.User;
 import pl.coderslab.climbingleague.repositories.UserRepository;
 
@@ -27,8 +28,12 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User save(User user){
+    public User save(User user) throws EmailUsedException {
         logger.info("Saving user with id: {}", user.getId());
+        if(userRepository.findUserByEmail(user.getEmail()) != null){
+            throw new EmailUsedException("There is an account with provided email");
+        }
+        //dopisać hashowanie
         return userRepository.save(user);
     }
 
