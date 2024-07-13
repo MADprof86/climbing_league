@@ -21,6 +21,11 @@ public class UserController {
 
         return "users";
     };
+    @GetMapping("/deleteCredentials/{id}")
+    public String anonymizeUser(@PathVariable Long id) {
+        userService.deleteLoginCredentials(id);
+        return "redirect:/users";
+    }
 
 
 

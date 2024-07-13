@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -21,11 +22,11 @@ public class User {
     private Long id;
 
     @Email
-    @NonNull
+
     @Column(nullable = false, unique = true)
     private String email;
     @Size(min = 8)
-    @Column(nullable = false)
+
     private String password;
     @NonNull
     private String firstName;

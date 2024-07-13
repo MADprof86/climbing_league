@@ -3,6 +3,7 @@ package pl.coderslab.climbingleague.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.climbingleague.exceptions.EmailUsedException;
@@ -51,6 +52,13 @@ public class UserService {
     public User findUserByEmail(String email){
         logger.info("Finding user by email");
         return userRepository.findUserByEmail(email);
+    }
+    public void deleteLoginCredentials(long id){
+        logger.info("Deleting email and password for user {}", id);
+        User user = userRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User ith ID  not found."));
+        user.setEmail(null);
+        user.setPassword(null);
+        userRepository.save(user);
     }
 
 

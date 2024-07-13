@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,23 +14,26 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Email</th>
+            <th>LP</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')">EMAIL</th>
             <th>Imie</th>
             <th>Nazwisko</th>
-            <th>Profil</th>
-            <th>Actions</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')">Profil</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}">1</td>
-            <td th:text="${user.email}">email@example.com</td>
+        <tr th:each="user, stat : ${users}">
+            <td th:text="${stat.count}">1</td>
+            <td sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')"
+                th:text="${user.email != null ? user.email : 'brak'}">email@example.com</td>
             <td th:text="${user.firstName}">First Name</td>
             <td th:text="${user.lastName}">Last Name</td>
-            <td th:text="${user.role}">USER</td>
-            <td>
-                <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć użytkownika?');">Delete</a>
+            <td sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')"
+                th:text="${user.role != null ? user.role : 'brak'}">USER</td>
+            <td sec:authorize="hasRole('ADMIN') or hasRole('SUPERADMIN')">
+
+                <a th:href="@{/users/deleteCredentials/{id}(id=${user.id})}" class="btn btn-danger" onclick="return confirm('Czy chcesz usunąć użytkownika?');">Delete</a>
             </td>
         </tr>
         </tbody>
