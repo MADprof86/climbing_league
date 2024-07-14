@@ -43,6 +43,22 @@ public class UserService {
         user.setRole(User.Role.USER);
         userRepository.save(user);
     }
+    public void saveWithChangedEmail(User user) throws EmailUsedException {
+        logger.info("Saving user with changed email, id: {}", user.getId());
+        User existingUser = userRepository.findUserByEmail(user.getEmail());
+        if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+            throw new EmailUsedException("There is an account with provided email");
+        }
+        if(user.getPassword() != null && !user.getPassword().isEmpty()){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        else if (user.getId() != null){
+            User oldUser = userRepository.findById(user.getId()).orElseThrow();
+            user.setPassword(oldUser.getPassword());
+        }
+
+        userRepository.save(user);
+    }
 
     public void deleteById(Long id){
 
