@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edycja Zawodów</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{header :: header}"></nav>
+<div class="container">
+    <h1>Edycja Zawodów</h1>
+    <form th:action="@{/competitions/update}" th:object="${competition}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="name">Nazwa Zawodów:</label>
+            <input type="text" id="name" name="name" class="form-control" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" class="form-control" th:field="*{date}" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Lokalizacja:</label>
+            <input type="text" id="location" name="location" class="form-control" th:field="*{location}" required>
+        </div>
+        <div class="form-group">
+            <label for="objectName">Obiekt:</label>
+            <input type="text" id="objectName" name="objectName" class="form-control" th:field="*{objectName}" required>
+        </div>
+        <div class="form-group">
+            <label for="createdByLabel">Utworzony przez:</label>
+            <input type="hidden" th:field="*{createdBy.id}" id="createdBy" name="createdBy" class="form-control" th:value="*{createdBy.id}">
+            <label id="createdByLabel" th:text="${competition.createdBy != null ? competition.createdBy.firstName + ' ' + competition.createdBy.lastName : 'Brak'}"></label>
+        </div>
+        <div class="form-group">
+            <label for="leagueLabel">Liga:</label>
+            <input type="hidden" th:field="*{league.id}" id="league" name="league" class="form-control" th:value="*{league.id}">
+            <label id="leagueLabel" th:text="${competition.league != null ? competition.league.name : 'Brak'}"></label>
+        </div>
+        <div class="form-group">
+            <label for="type">Typ Zawodów:</label>
+            <select id="type" name="type" class="form-control" th:field="*{type}" required>
+                <option th:each="type : ${competitionTypes}" th:value="${type}" th:text="${type}">Typ</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="scoreSystem">System Punktowy:</label>
+            <select id="scoreSystem" name="scoreSystem" class="form-control" th:field="*{scoreSystem}" required>
+                <option th:each="scoreSystem : ${scoreSystems}" th:value="${scoreSystem}" th:text="${scoreSystem}">System Punktowy</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+        </div>
+    </form>
+    <div class="form-group">
+        <a th:href="@{/leagues/edit/{id}(id=${competition.league.id})}" class="btn btn-secondary">Powrót do Edycji Lig</a>
+    </div>
+</div>
+
+<script>
+
+    if([[${successMessage}]] !== null) {
+        alert("Zapis się udał: " + [[${successMessage}]]);
+    }
+
+
+    if([[${errorMessage}]] !== null) {
+        alert("Błąd zapisu: " + [[${errorMessage}]]);
+    }
+</script>
+</body>
+</html>

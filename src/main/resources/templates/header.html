@@ -15,20 +15,20 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/leagues">Leagues</a>
+                <a class="nav-link" href="/leagues">Ligi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/competitions">Competitions</a>
+                <a class="nav-link" href="/competitions">Zawody</a>
             </li>
 
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="/results">Results</a>-->
 <!--            </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="/users">Users</a>
+                <a class="nav-link" href="/users">Zawodnicy</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/results">Moje wyniki</a>
+                <a class="nav-link" href="/scores">Moje wyniki</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/leagues-administration">Edytuj ligi</a>
@@ -40,7 +40,7 @@
             </li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/profile">Profile</a>
+                <a class="nav-link" href="/profile">Profil</a>
             </li>
             <li class="nav-item" sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/login">Login</a>

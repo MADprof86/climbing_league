@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Profil Użytkownika</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<nav th:replace="header :: header"></nav>
+<div class="container">
+    <h1>Profil Użytkownika</h1>
+    <form th:action="@{/profile/update}" method="post" id="profileForm">
+        <div class="form-group">
+            <label for="firstName">Imię:</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" th:value="${user.firstName}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nazwisko:</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" th:value="${user.lastName}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" th:value="${user.email}" readonly>
+        </div>
+        <div class="form-group" id="passwordGroup" style="display:none;">
+            <label for="password">Nowe Hasło:</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <div class="form-group" id="confirmPasswordGroup" style="display:none;">
+            <label for="confirmPassword">Potwierdź Nowe Hasło:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="role">Rola:</label>
+            <input type="text" id="role" name="role" class="form-control" th:value="${user.role}" readonly>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" id="editButton">Edytuj</button>
+            <button type="submit" class="btn btn-success" id="saveButton" style="display:none;">Zmień Dane</button>
+        </div>
+    </form>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+</div>
+<script>
+    document.getElementById('editButton').addEventListener('click', function () {
+        var formElements = document.getElementById('profileForm').elements;
+        for (var i = 0; i < formElements.length; i++) {
+            if (formElements[i].id !== 'role') {
+                formElements[i].removeAttribute('readonly');
+            }
+        }
+        document.getElementById('passwordGroup').style.display = 'block';
+        document.getElementById('confirmPasswordGroup').style.display = 'block';
+        document.getElementById('editButton').style.display = 'none';
+        document.getElementById('saveButton').style.display = 'block';
+    });
+</script>
+</body>
+</html>

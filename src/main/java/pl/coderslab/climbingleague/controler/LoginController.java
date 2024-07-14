@@ -12,10 +12,10 @@ public class LoginController {
                         @RequestParam(value = "logout", required = false) String logout,
                         Model model) {
         if (error != null) {
-            model.addAttribute("error", "Invalid email or password.");
+            model.addAttribute("error", "Błędny mail lub hasło");
         }
         if (logout != null) {
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "Zostałeś prawidłowo wylogowany.");
         }
         return "login";
 
