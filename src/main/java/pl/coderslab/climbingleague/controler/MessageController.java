@@ -25,7 +25,7 @@ public class MessageController {
     @GetMapping("/")
     public String home(@RequestParam(value = "login_success", required = false) String loginSuccess, Model model) {
         if (loginSuccess != null) {
-            model.addAttribute("message", "You have logged in successfully.");
+            model.addAttribute("message", "Zalogowałeś się poprawnie");
         }
         return "index";
     }

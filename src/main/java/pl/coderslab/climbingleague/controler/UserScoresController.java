@@ -17,7 +17,7 @@ import pl.coderslab.climbingleague.service.UserService;
 import java.util.List;
 
 @Controller
-public class UserResultsController {
+public class UserScoresController {
     @Autowired
     private ScoresService scoresService;
     @Autowired
@@ -25,7 +25,7 @@ public class UserResultsController {
     @Autowired
     private BoulderResultService boulderResultService;
 
-    @GetMapping("/results")
+    @GetMapping("/scores")
     //Do modyfikacji po ustawieniu innego sposobu rankowania przy wprowadzaniu wyników
     private String getUserResults(@AuthenticationPrincipal UserDetails currentUser, Model model) {
         User user = userService.findUserByEmail(currentUser.getUsername());
@@ -38,7 +38,7 @@ public class UserResultsController {
         model.addAttribute("results",results);
         return "user-results";
     }
-    @GetMapping("/results/details/{id}")
+    @GetMapping("/scores/details/{id}")
     public String getUserResultDetails(@PathVariable Long id, @AuthenticationPrincipal UserDetails currentUser, Model model) {
         User user = userService.findUserByEmail(currentUser.getUsername());
         Scores result = scoresService.findById(id).orElse(null);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Competition {
     private String name;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     private String location;
@@ -52,7 +54,7 @@ public class Competition {
    }
 
     public enum CompetitionType {
-        ELIMINATIONS, FINALS
+        ELIMINATIONS, FINALS, SEMI_FNAL
     }
 
     public enum ScoreSystem {

@@ -4,10 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.climbingleague.models.Competition;
 import pl.coderslab.climbingleague.models.Scores;
 import pl.coderslab.climbingleague.models.User;
+import pl.coderslab.climbingleague.repositories.CompetitionRepository;
 import pl.coderslab.climbingleague.repositories.ScoresRepository;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,8 @@ public class ScoresService {
 
     @Autowired
     private ScoresRepository scoresRepository;
+    @Autowired
+    private CompetitionRepository competitionRepository;
 
     public List<Scores> findAll() {
         logger.info("Fetching all results");
@@ -57,4 +63,5 @@ public class ScoresService {
     public Scores findByUserAndCompetitionId(User user, Long competitionId) {
         return  scoresRepository.findByUserAndCompetitionId(user,competitionId);
     }
+
 }

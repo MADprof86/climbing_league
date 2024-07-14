@@ -41,7 +41,7 @@ public class UserProfileController {
         if (password != null && !password.isEmpty()) {
             if (!password.equals(confirmPassword)) {
                 model.addAttribute("user", user);
-                model.addAttribute("errorMessage", "Passwords do not match.");
+                model.addAttribute("errorMessage", "Hasła nie zgadzają się");
                 return "user-profile";
             }
             user.setPassword(password);
@@ -51,7 +51,7 @@ public class UserProfileController {
         }
         catch (EmailUsedException e){
             model.addAttribute("user",user);
-            model.addAttribute("errorMessage", "There is an abbount with the same email");
+            model.addAttribute("errorMessage", "Jest już użytwkonik z tym samym mailem");
             return "user-profile";
         }
         return "redirect:/profile";
