@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(exclude = {"competition"})
+
 public class Boulder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

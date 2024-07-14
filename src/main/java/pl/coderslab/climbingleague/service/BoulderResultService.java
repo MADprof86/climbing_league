@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.climbingleague.models.Boulder;
 import pl.coderslab.climbingleague.models.BoulderResult;
 import pl.coderslab.climbingleague.models.Scores;
 import pl.coderslab.climbingleague.repositories.BoulderResultRepository;
@@ -39,6 +40,12 @@ public class BoulderResultService {
     }
 
     public List<BoulderResult> findByScores(Scores result) {
+        logger.info("Looking for scores ");
         return boulderResultRepository.findAllByScores(result);
+    }
+
+    public List<BoulderResult> findByBoulder(Boulder boulder) {
+        logger.info("Looking for bouders in results  by id{} ",boulder.getId());
+        return boulderResultRepository.findByBoulder(boulder);
     }
 }

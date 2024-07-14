@@ -50,25 +50,88 @@
                 <option th:each="scoreSystem : ${scoreSystems}" th:value="${scoreSystem}" th:text="${scoreSystem}">System Punktowy</option>
             </select>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Zapisz</button>
-        </div>
     </form>
-    <div class="form-group">
-        <a th:href="@{/leagues/edit/{id}(id=${competition.league.id})}" class="btn btn-secondary">Powrót do Edycji Lig</a>
-    </div>
+        <h2>Bouldery</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Nazwa Boulderu</th>
+                <th>Punkty za Top</th>
+                <th>Punkty za Zone</th>
+                <th>Trudność</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boulder : ${competition.boulders}">
+                <td>
+                    <input type="text" name="name" class="form-control" th:value="${boulder.name}" readonly required>
+                </td>
+                <td>
+                    <input type="number" name="pointsForTop" class="form-control" th:value="${boulder.pointsForTop}" readonly required>
+                </td>
+                <td>
+                    <input type="number" name="pointsForZone" class="form-control" th:value="${boulder.pointsForZone}" readonly required>
+                </td>
+
+                <td th:text="${boulder.difficulty}">Trudność</td>
+
+                <td>
+                    <form th:action="@{/competitions/boulders/delete/{id}(id=${boulder.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+<!--            Dodawanie nowego Boulderu -->
+            <tr>
+                <form th:action="@{/competitions/boulders/add}" th:object="${newBoulder}" method="post">
+                    <input type="hidden" th:field="*{competition.id}" th:value="${competition.id}">
+                    <td>
+                        <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Nazwa Boulderu" required>
+                    </td>
+                    <td>
+                        <input type="number" name="pointsForTop" class="form-control" th:field="*{pointsForTop}" placeholder="Punkty za Top" required>
+                    </td>
+                    <td>
+                        <input type="number" name="pointsForZone" class="form-control" th:field="*{pointsForZone}" placeholder="Punkty za Zone" required>
+                    </td>
+                    <td>
+                        <select name="difficulty" class="form-control" th:field="*{difficulty}" required>
+                            <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}">Trudność</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success">Dodaj</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+        <div class="form-group">
+            <a th:href="@{/leagues/edit/{id}(id=${competition.league.id})}" class="btn btn-secondary">Powrót do Edycji Lig</a>
+        </div>
 </div>
 
-<script>
+    <script>
 
-    if([[${successMessage}]] !== null) {
-        alert("Zapis się udał: " + [[${successMessage}]]);
-    }
+        if ([[${successMessage != null}]]) {
+            alert("Zapis się udał: " + [[${successMessage}]]);
+        }
+        if ([[${errorMessage != null}]]) {
+            alert("Błąd zapisu: " + [[${errorMessage}]]);
+        }
+    </script>
+    <script>
+        function editBoulder(button) {
+            var form = button.closest('form');
+            form.querySelectorAll('input, select').forEach(function (input) {
+                input.readOnly = false;
+                input.disabled = false;
+            });
+            button.style.display = 'none';
+            form.querySelector('.btn-primary').style.display = 'inline-block';
+        }
+    </script>
 
-
-    if([[${errorMessage}]] !== null) {
-        alert("Błąd zapisu: " + [[${errorMessage}]]);
-    }
-</script>
 </body>
 </html>

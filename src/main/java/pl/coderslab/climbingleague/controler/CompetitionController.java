@@ -47,7 +47,7 @@ public class CompetitionController {
         }
         List<Competition.CompetitionType> competitionTypes = getCompetitionTypes();
         List<Competition.ScoreSystem> scoreSystems = getScoreSystems();
-
+        model.addAttribute("newBoulder", new Boulder());
         model.addAttribute("competition", competition);
         model.addAttribute("competitionTypes", competitionTypes);
         model.addAttribute("scoreSystems", scoreSystems);
