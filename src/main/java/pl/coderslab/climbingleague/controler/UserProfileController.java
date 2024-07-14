@@ -41,7 +41,7 @@ public class UserProfileController {
         if (password != null && !password.isEmpty()) {
             if (!password.equals(confirmPassword)) {
                 model.addAttribute("user", user);
-                model.addAttribute("errorMessage", "Hasła nie są takie same.");
+                model.addAttribute("errorMessage", "Passwords do not match.");
                 return "user-profile";
             }
             user.setPassword(password);

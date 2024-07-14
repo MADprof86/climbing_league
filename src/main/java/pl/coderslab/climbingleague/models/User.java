@@ -23,7 +23,7 @@ public class User {
 
     @Email
     @Nullable
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private String email;
     @Size(min = 8)
     @Nullable
