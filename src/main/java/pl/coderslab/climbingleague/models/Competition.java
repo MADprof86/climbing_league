@@ -43,7 +43,7 @@ public class Competition {
     @Column(nullable = false)
     private ScoreSystem scoreSystem;
 
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<Scores> scores;
 
    @Transient

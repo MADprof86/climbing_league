@@ -27,6 +27,13 @@ public class League {
     @JoinColumn(name = "created_by")
     private User createdBy;
 
-    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY)
     private List<Competition> competitions;
+    @PreRemove
+    private void preRemove(){
+        for(Competition competition : competitions)
+        {
+            competition.setLeague(null);
+        }
+    }
 }
