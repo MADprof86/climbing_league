@@ -11,22 +11,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BoulderResult {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "scores_id")
     private Scores scores;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "boulder_id")
     private Boulder boulder;
 
-    private Double score;
-    private Boolean top;
-    private Boolean zone;
-    private Integer attempts;
-    private Boolean flash;
+    private boolean top;
+    private boolean zone;
+    private int attempts;
 }
 

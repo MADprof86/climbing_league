@@ -47,6 +47,8 @@ public class Competition {
 
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<Scores> scores;
+    @OneToMany(mappedBy = "competition")
+    private List<Boulder> boulders;
 
    @Transient
    public int getNumberOfParticipants(){
@@ -54,7 +56,7 @@ public class Competition {
    }
 
     public enum CompetitionType {
-        ELIMINATIONS, FINALS, SEMI_FNAL
+        ELIMINATIONS, FINALS, SEMI_FINAL
     }
 
     public enum ScoreSystem {

@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Scores {
+public class Scores implements ScoreCalculator{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,11 +27,16 @@ public class Scores {
     @OneToMany(mappedBy = "scores")
     private List<BoulderResult> boulderResults;
 
-    private Double score;
-    private Integer top;
-    private Integer zone;
-    private Integer attempts;
-    private Integer flashAttempts;
-    private Double totalPoints;
     private Integer currentRanking;
+
+
+    @Override
+    public Double getTotalScore() {
+
+        return boulderResults.stream()
+                    .mapToDouble(result -> (result.isTop() ? result.getBoulder().getPointsForTop() : 0) +
+                            (result.isZone() ? result.getBoulder().getPointsForZone() : 0))
+                    .sum();
+    }
+
 }

@@ -1,10 +1,13 @@
 package pl.coderslab.climbingleague.service;
 
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.climbingleague.models.Boulder;
 import pl.coderslab.climbingleague.models.Competition;
+import pl.coderslab.climbingleague.repositories.BoulderRepository;
 import pl.coderslab.climbingleague.repositories.CompetitionRepository;
 
 import java.util.List;
@@ -17,6 +20,8 @@ public class CompetitionService {
 
     @Autowired
     private CompetitionRepository competitionRepository;
+    @Autowired
+    private BoulderRepository boulderRepository;
 
     public List<Competition> findAll() {
         logger.info("Fetching all competitions");
@@ -47,6 +52,35 @@ public class CompetitionService {
         logger.info("Looking for repository by league null");
         return competitionRepository.findAllByLeagueIsNull();
     }
+    @Transactional
+    public Competition updateCompetitionAndBoulders(Competition competition) {
+        Competition existingCompetition = competitionRepository.findById(competition.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid competition Id:" + competition.getId()));
+
+
+        for (Boulder boulder : competition.getBoulders()) {
+            if (boulder.getId() != null) {
+
+                Boulder existingBoulder = boulderRepository.findById(boulder.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid boulder Id:" + boulder.getId()));
+
+                existingBoulder.setName(boulder.getName());
+                existingBoulder.setPointsForTop(boulder.getPointsForTop());
+                existingBoulder.setPointsForZone(boulder.getPointsForZone());
+                existingBoulder.setDifficulty(boulder.getDifficulty());
+
+                boulderRepository.save(existingBoulder);
+            } else {
+
+                boulder.setCompetition(existingCompetition);
+                boulderRepository.save(boulder);
+            }
+        }
+
+        //sprawdzić czy na pewno nie wywala błędu
+        existingCompetition.getBoulders().removeIf(boulder -> !competition.getBoulders().contains(boulder));
+
+        return competitionRepository.save(existingCompetition);
+    }
+
 }
 
 

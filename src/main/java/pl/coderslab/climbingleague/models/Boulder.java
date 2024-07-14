@@ -21,11 +21,20 @@ public class Boulder {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
-
-    @Size(min = 2)
     @Column(nullable = false)
     private String name;
 
-   @OneToMany(mappedBy = "boulder")
-    private List<BoulderResult> boulderResults;
+    @Column(nullable = false)
+    private int pointsForTop;
+
+    @Column(nullable = false)
+    private int pointsForZone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DifficultyLevel difficulty;
+
+    public enum DifficultyLevel {
+        WHITE, YELLOW, BLUE, RED, BLACK, GREEN, PURPLE, ORANGE, GREY, BROWN
+    }
 }

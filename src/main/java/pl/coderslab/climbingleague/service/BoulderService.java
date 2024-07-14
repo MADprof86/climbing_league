@@ -37,4 +37,9 @@ public class BoulderService {
         logger.info("Deleting boulder with id: {}", id);
         boulderRepository.deleteById(id);
     }
+
+    public void delete(Boulder boulder) {
+        logger.info("Deleting boulder with id: {}",boulder.getId());
+        boulderRepository.delete(boulder);
+    }
 }

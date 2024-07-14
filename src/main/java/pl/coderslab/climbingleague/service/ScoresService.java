@@ -47,7 +47,7 @@ public class ScoresService {
     public List<Scores> findByCompetitionId(Long competitionId){
         //Ustawiamy od razu sortowanie - potem musimy dodać jeszcze podział na kategorie
         List<Scores> scores = scoresRepository.findAllByCompetitionId(competitionId);
-        scores.sort(Comparator.comparingDouble(Scores::getTotalPoints).reversed());
+        scores.sort(Comparator.comparingDouble(Scores::getTotalScore).reversed());
         for (int i = 0; i < scores.size() ; i++) {
             scores.get(i).setCurrentRanking(i+1);
 
