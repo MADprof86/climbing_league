@@ -18,20 +18,20 @@ Responsive Design: Uses Bootstrap for responsive design.
 Installation
 Clone the repository:
 
-bash
+
 Skopiuj kod
 git clone https://github.com/your-username/climbing-league.git
 cd climbing-league
 Install dependencies: Make sure you have Maven and Java installed. Then, run:
 
-bash
+
 Skopiuj kod
 mvn install
 Set up the database: This application uses MySQL. Set up your database and configure your application.properties file with the correct database connection details.
 
 Run the application:
 
-bash
+
 Skopiuj kod
 mvn spring-boot:run
 Usage
