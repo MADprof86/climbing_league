@@ -16,22 +16,18 @@ import java.util.Optional;
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     public List<User> findAll(){
         logger.info("Finding all users");
         return userRepository.findAll();
     }
-
     public Optional<User> findById(Long id){
         logger.info("Finding user with id: {}",id);
         return userRepository.findById(id);
     }
-
     public void save(User user) throws EmailUsedException {
         logger.info("Saving user with id: {}", user.getId());
         if(userRepository.findUserByEmail(user.getEmail()) != null){
@@ -59,7 +55,6 @@ public class UserService {
 
         userRepository.save(user);
     }
-
     public void deleteById(Long id){
 
         logger.info("Deleting user with id {}", id);

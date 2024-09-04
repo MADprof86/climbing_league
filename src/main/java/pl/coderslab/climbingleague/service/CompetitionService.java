@@ -59,22 +59,17 @@ public class CompetitionService {
 
         for (Boulder boulder : competition.getBoulders()) {
             if (boulder.getId() != null) {
-
                 Boulder existingBoulder = boulderRepository.findById(boulder.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid boulder Id:" + boulder.getId()));
-
                 existingBoulder.setName(boulder.getName());
                 existingBoulder.setPointsForTop(boulder.getPointsForTop());
                 existingBoulder.setPointsForZone(boulder.getPointsForZone());
                 existingBoulder.setDifficulty(boulder.getDifficulty());
-
                 boulderRepository.save(existingBoulder);
             } else {
-
                 boulder.setCompetition(existingCompetition);
                 boulderRepository.save(boulder);
             }
         }
-
         //sprawdzić czy na pewno nie wywala błędu
         existingCompetition.getBoulders().removeIf(boulder -> !competition.getBoulders().contains(boulder));
 

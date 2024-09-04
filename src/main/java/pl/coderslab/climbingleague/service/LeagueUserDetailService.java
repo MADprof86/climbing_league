@@ -17,7 +17,6 @@ import java.util.Collection;
 public class LeagueUserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(email);
@@ -26,11 +25,8 @@ public class LeagueUserDetailService implements UserDetailsService {
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
-
         System.out.println("User found: " + user.getEmail());
         System.out.println("Password: " + user.getPassword());
-
-
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 }

@@ -37,10 +37,8 @@ public class LeagueAdministrationController {
         if (!leagueOptional.isPresent()) {
             return "redirect:/leagues";
         }
-
         League league = leagueOptional.get();
         List<Competition> competitionsWithoutLeague = competitionService.findByLeagueIsNull();
-
         model.addAttribute("league", league);
         model.addAttribute("competitionsWithoutLeague", competitionsWithoutLeague);
         return "leagues-administration-edit";
@@ -67,6 +65,7 @@ public class LeagueAdministrationController {
     @GetMapping("/leagues/removeCompetition/{competitionId}/{leagueId}")
     public String removeCompetitionFromLeague(@PathVariable Long competitionId, @PathVariable Long leagueId) {
         Optional<Competition> competitionOptional = competitionService.findById(competitionId);
+
         if (competitionOptional.isPresent()) {
             Competition competition = competitionOptional.get();
             competition.setLeague(null);
@@ -96,10 +95,8 @@ public class LeagueAdministrationController {
         League league = new League();
         league.setName(name);
         league.setDescription(description);
-
         User admin = userService.findUserByEmail(currentUser.getUsername());
         league.setCreatedBy(admin);
-
         leagueService.save(league);
         return ResponseEntity.ok("Liga została dodana");
     }

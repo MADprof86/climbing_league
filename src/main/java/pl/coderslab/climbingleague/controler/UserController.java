@@ -18,7 +18,6 @@ public class UserController {
     public String listUsers(Model model){
         model.addAttribute("users",userService.findAll());
         model.addAttribute("user", new User());
-
         return "users";
     };
     @GetMapping("/deleteCredentials/{id}")

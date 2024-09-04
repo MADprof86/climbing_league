@@ -19,27 +19,22 @@ import java.util.Optional;
 @Service
 public class ScoresService {
     private static final Logger logger = LoggerFactory.getLogger(ScoresService.class);
-
     @Autowired
     private ScoresRepository scoresRepository;
     @Autowired
     private CompetitionRepository competitionRepository;
-
     public List<Scores> findAll() {
         logger.info("Fetching all results");
         return scoresRepository.findAll();
     }
-
     public Optional<Scores> findById(Long id) {
         logger.info("Fetching result with id: {}", id);
         return scoresRepository.findById(id);
     }
-
     public Scores save(Scores result) {
         logger.info("Saving result");
         return scoresRepository.save(result);
     }
-
     public void deleteById(Long id) {
         logger.info("Deleting result with id: {}", id);
         scoresRepository.deleteById(id);
@@ -50,12 +45,9 @@ public class ScoresService {
         scores.sort(Comparator.comparingDouble(Scores::getTotalScore).reversed());
         for (int i = 0; i < scores.size() ; i++) {
             scores.get(i).setCurrentRanking(i+1);
-
         }
         return scores;
-
     }
-
     public List<Scores> findByUser(User user) {
         return  scoresRepository.findAllByUser(user);
     }
@@ -63,5 +55,4 @@ public class ScoresService {
     public Scores findByUserAndCompetitionId(User user, Long competitionId) {
         return  scoresRepository.findByUserAndCompetitionId(user,competitionId);
     }
-
 }

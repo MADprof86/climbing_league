@@ -19,7 +19,6 @@ public class LeagueController {
     @Autowired
     private CompetitionService competitionService;
 
-
     @GetMapping
     public String getLeagues(Model model) {
         model.addAttribute("leagues", leagueService.findAll());
@@ -33,7 +32,6 @@ public class LeagueController {
         leagueService.save(league);
         return "redirect:/leagues";
     }
-
 
     @GetMapping("/details/{id}")
     public String getLeagueDetails(@PathVariable Long id, Model model){

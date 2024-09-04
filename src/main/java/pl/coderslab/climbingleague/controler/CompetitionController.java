@@ -47,11 +47,15 @@ public class CompetitionController {
         }
         List<Competition.CompetitionType> competitionTypes = getCompetitionTypes();
         List<Competition.ScoreSystem> scoreSystems = getScoreSystems();
+        List<Boulder.DifficultyLevel> difficulties = Arrays.asList(Boulder.DifficultyLevel.values());
         model.addAttribute("newBoulder", new Boulder());
         model.addAttribute("competition", competition);
+        model.addAttribute("competitionId", competition.getId());
         model.addAttribute("competitionTypes", competitionTypes);
         model.addAttribute("scoreSystems", scoreSystems);
         model.addAttribute("boulders", competition.getBoulders());
+        model.addAttribute("difficulties", difficulties);
+
         return "competitions-edit";
     }
 
@@ -96,11 +100,19 @@ public class CompetitionController {
         return "redirect:/competitions/edit/" + competition.getId();
     }
     @PostMapping("/boulders/add")
-    public String addBoulder(@ModelAttribute("boulder") @Valid Boulder boulder, BindingResult result, Model model) {
+    public String addBoulder(@RequestParam("competition.id") Long competitionId,
+                             @ModelAttribute("boulder") @Valid Boulder boulder,
+                             BindingResult result,
+                             Model model) {
         if (result.hasErrors()) {
             return "redirect:/competitions/edit/" + boulder.getCompetition().getId();
         }
-
+        Competition competition = competitionService.findById(competitionId).orElse(null);
+        if(competition == null){
+            model.addAttribute("errorMessage","Błąd podczas zapisywania bouleru. Brak zawodów.");
+            return "redirect:/competitions";
+        }
+        boulder.setCompetition(competition);
         boulderService.save(boulder);
         return "redirect:/competitions/edit/" + boulder.getCompetition().getId();
     }

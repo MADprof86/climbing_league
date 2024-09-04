@@ -20,12 +20,10 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/registration")
     public String getRegistrationForm(Model model){
         model.addAttribute("user", new User());
         return "registration";
-
     }
     @PostMapping("/registration")
     public String registerNewUser(@ModelAttribute("user") @Valid User user,
@@ -35,12 +33,10 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return "registration";
         }
-
         if (!user.getPassword().equals(confirmPassword)) {
             result.rejectValue("password", "error.user", "Hasła nie są zgodne.");
             return "registration";
         }
-
         try {
 
             userService.save(user);

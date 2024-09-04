@@ -14,7 +14,6 @@ import java.util.Optional;
 public class BoulderService {
     private static final Logger logger = LoggerFactory.getLogger(BoulderService.class);
 
-
     @Autowired
     private BoulderRepository boulderRepository;
 

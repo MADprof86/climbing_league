@@ -21,10 +21,8 @@ import java.util.List;
 @RequestMapping("/scores")
 public class ScoresController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoresService.class);
-
     @Autowired
     private ScoresService scoresService;
-
 
     @GetMapping("/competition/{id}")
     public String listScoresByCompetition(@PathVariable Long id, Model model) {

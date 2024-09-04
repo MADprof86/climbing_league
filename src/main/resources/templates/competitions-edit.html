@@ -52,6 +52,13 @@
         </div>
     </form>
         <h2>Bouldery</h2>
+    <!-- Dodaj sekcję do wyświetlania komunikatów -->
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -85,7 +92,7 @@
 <!--            Dodawanie nowego Boulderu -->
             <tr>
                 <form th:action="@{/competitions/boulders/add}" th:object="${newBoulder}" method="post">
-                    <input type="hidden" th:field="*{competition.id}" th:value="${competition.id}">
+                    <input type="hidden" th:field="*{competition.id}" th:value="${competitionId}">
                     <td>
                         <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Nazwa Boulderu" required>
                     </td>
@@ -110,6 +117,7 @@
         <div class="form-group">
             <a th:href="@{/leagues/edit/{id}(id=${competition.league.id})}" class="btn btn-secondary">Powrót do Edycji Lig</a>
         </div>
+
 </div>
 
     <script>

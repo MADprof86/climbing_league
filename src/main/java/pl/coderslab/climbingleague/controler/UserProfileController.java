@@ -32,7 +32,6 @@ public class UserProfileController {
                                     @RequestParam String email,
                                     @RequestParam(required = false) String password,
                                     @RequestParam(required = false) String confirmPassword,
-
                                     Model model) {
         User user = userService.findUserByEmail(currentUser.getUsername());
         user.setFirstName(firstName);
