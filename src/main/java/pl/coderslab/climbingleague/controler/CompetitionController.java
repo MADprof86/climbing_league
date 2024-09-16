@@ -1,7 +1,7 @@
 package pl.coderslab.climbingleague.controler;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +19,14 @@ import java.util.Optional;
 @RequestMapping("/competitions")
 public class CompetitionController {
 
-    @Autowired
+
     private CompetitionService competitionService;
-    @Autowired
     private BoulderService boulderService;
+
+    public CompetitionController(CompetitionService competitionService, BoulderService boulderService) {
+        this.competitionService = competitionService;
+        this.boulderService = boulderService;
+    }
 
 
     @GetMapping()
@@ -43,7 +47,7 @@ public class CompetitionController {
     public String getEditCompetitionForm(@PathVariable Long id, Model model) {
         Competition competition = competitionService.findById(id).orElse(null);
         if (competition == null) {
-            return "redirect:/competitions-results-edit"; // do ustawienia widok
+            return "redirect:/competitions-results-edit";
         }
         List<Competition.CompetitionType> competitionTypes = getCompetitionTypes();
         List<Competition.ScoreSystem> scoreSystems = getScoreSystems();
@@ -60,13 +64,11 @@ public class CompetitionController {
     }
 
     private static List<Competition.ScoreSystem> getScoreSystems() {
-        List<Competition.ScoreSystem> scoreSystems = Arrays.asList(Competition.ScoreSystem.values());
-        return scoreSystems;
+        return Arrays.asList(Competition.ScoreSystem.values());
     }
 
     private static List<Competition.CompetitionType> getCompetitionTypes() {
-        List<Competition.CompetitionType> competitionTypes = Arrays.asList(Competition.CompetitionType.values());
-        return competitionTypes;
+        return Arrays.asList(Competition.CompetitionType.values());
     }
 
 //    @PostMapping("/update")
@@ -97,10 +99,11 @@ public class CompetitionController {
 
         competitionService.save(competition);
         model.addAttribute("successMessage", "Dane zawodów zostały pomyślnie zapisane.");
-        return "redirect:/competitions/edit/" + competition.getId();
+        String redirection = "redirect:/competitions/edit/" + competition.getId();
+        return redirection;
     }
-    @PostMapping("/boulders/add")
-    public String addBoulder(@RequestParam("competition.id") Long competitionId,
+    @PostMapping("/boulders/add/{competition}")
+    public String addBoulder(@PathVariable("competition") Long competitionId,
                              @ModelAttribute("boulder") @Valid Boulder boulder,
                              BindingResult result,
                              Model model) {

@@ -50,6 +50,9 @@
                 <option th:each="scoreSystem : ${scoreSystems}" th:value="${scoreSystem}" th:text="${scoreSystem}">System Punktowy</option>
             </select>
         </div>
+        <td>
+            <button type="submit" class="btn btn-success">Zapisz zmiany</button>
+        </td>
     </form>
         <h2>Bouldery</h2>
     <!-- Dodaj sekcję do wyświetlania komunikatów -->
@@ -91,16 +94,16 @@
             </tr>
 <!--            Dodawanie nowego Boulderu -->
             <tr>
-                <form th:action="@{/competitions/boulders/add}" th:object="${newBoulder}" method="post">
-                    <input type="hidden" th:field="*{competition.id}" th:value="${competitionId}">
+                <form th:action="@{/competitions/boulders/add/{competition}(competition=${competition.id})}" th:object="${newBoulder}" method="post">
+
                     <td>
                         <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Nazwa Boulderu" required>
                     </td>
                     <td>
-                        <input type="number" name="pointsForTop" class="form-control" th:field="*{pointsForTop}" placeholder="Punkty za Top" required>
+                        <input type="number" name="pointsForTop" class="form-control" th:field="*{pointsForTop}" placeholder="Punkty za Top" min="1" required>
                     </td>
                     <td>
-                        <input type="number" name="pointsForZone" class="form-control" th:field="*{pointsForZone}" placeholder="Punkty za Zone" required>
+                        <input type="number" name="pointsForZone" class="form-control" th:field="*{pointsForZone}" placeholder="Punkty za Zone" min="1" required>
                     </td>
                     <td>
                         <select name="difficulty" class="form-control" th:field="*{difficulty}" required>
