@@ -90,7 +90,31 @@
                     <form th:action="@{/competitions/boulders/delete/{id}(id=${boulder.id})}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Usuń</button>
                     </form>
+                    <button type="button" class="btn btn-warning" th:onclick="'showEditForm(' + ${boulder.id} + ')'">Edytuj</button>
                 </td>
+            </tr>
+            <!-- Formularz edycji -->
+            <tr id="edit-form-row" th:if="${editingBoulderId == boulder.id}" th:each="boulder : ${competition.boulders}">
+                <form th:action="@{/competitions/update/boulder}" th:object="${boulder}" method="post">
+                    <td>
+                        <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Nazwa Boulderu" required>
+                    </td>
+                    <td>
+                        <input type="number" name="pointsForTop" class="form-control" th:field="*{pointsForTop}" placeholder="Punkty za Top" min="1" required>
+                    </td>
+                    <td>
+                        <input type="number" name="pointsForZone" class="form-control" th:field="*{pointsForZone}" placeholder="Punkty za Zone" min="1" required>
+                    </td>
+                    <td>
+                        <select name="difficulty" class="form-control" th:field="*{difficulty}" required>
+                            <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}">Trudność</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success">Zapisz</button>
+                        <button type="button" class="btn btn-secondary" th:onclick="'hideEditForm(' + ${boulder.id} + ')'">Anuluj</button>
+                    </td>
+                </form>
             </tr>
 <!--            Dodawanie nowego Boulderu -->
             <tr>
@@ -132,17 +156,26 @@
             alert("Błąd zapisu: " + [[${errorMessage}]]);
         }
     </script>
-    <script>
-        function editBoulder(button) {
-            var form = button.closest('form');
-            form.querySelectorAll('input, select').forEach(function (input) {
-                input.readOnly = false;
-                input.disabled = false;
-            });
-            button.style.display = 'none';
-            form.querySelector('.btn-primary').style.display = 'inline-block';
+<script>
+    function showEditForm(boulderId) {
+        // Ukrywa wszystkie formularze edycji, jeżeli istnieją
+        document.querySelectorAll('#edit-form-row').forEach(row => {
+            row.style.display = 'none';
+        });
+        // Pokazuje formularz edycji dla danego Boulderu
+        const editFormRow = document.getElementById(`edit-form-${boulderId}`);
+        if (editFormRow) {
+            editFormRow.style.display = '';
         }
-    </script>
+    }
+
+    function hideEditForm(boulderId) {
+        const editFormRow = document.getElementById(`edit-form-${boulderId}`);
+        if (editFormRow) {
+            editFormRow.style.display = 'none';
+        }
+    }
+</script>
 
 </body>
 </html>
